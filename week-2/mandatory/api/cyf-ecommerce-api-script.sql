@@ -151,7 +151,7 @@ inner join products p on s.id=p.supplier_id
 inner join order_items oi on oi.product_id=p.id 
 group by c."name"
 ;
-
+--
 select supplier_name , sum(quantity) as total
 from suppliers s join products p on p.supplier_id = s.id 
 join order_items oi on p.id  = oi.product_id  
@@ -175,3 +175,9 @@ select * from products p
 inner join order_items oi on p.id=oi.product_id 
 inner join suppliers s on p.supplier_id=s.id 
 order by oi.quantity desc limit 3;
+
+--WEEK 3 HOMEWORK ---
+
+--Update the previous GET endpoint `/products` to filter the list of products by name using a query parameter, for example
+-- `/products?name=Cup`. This endpoint should still work even if you don't use the `name` query parameter!
+
