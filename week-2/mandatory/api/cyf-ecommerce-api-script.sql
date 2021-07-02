@@ -144,3 +144,34 @@ inner join orders o on o.customer_id=c.id
 inner join order_items oi on o.id=oi.order_id 
 inner join products p on oi.product_id=p.id 
 inner join suppliers s on p.supplier_id=s.id where s.country = 'China'; 
+
+--Extra 1: get the top 5 suppliers who sell the most.
+select * from suppliers s 
+inner join products p on s.id=p.supplier_id 
+inner join order_items oi on oi.product_id=p.id 
+group by c."name"
+;
+
+select supplier_name , sum(quantity) as total
+from suppliers s join products p on p.supplier_id = s.id 
+join order_items oi on p.id  = oi.product_id  
+group by supplier_name
+order by total desc
+limit 3
+
+--Extra 2 get top 3 customers that are buying more.
+SELECT * FROM order_items oi 
+INNER JOIN products p ON p.id=product_id
+INNER JOIN orders o ON oi.id=oi.order_id
+INNER JOIN customers c ON c.id=o.customer_id
+ORDER BY oi.quantity desc limit 3;
+
+select * from customers c 
+inner join orders o on c.id=o.customer_id
+inner join order_items oi on o.id=oi.order_id order by c."name", oi.quantity desc limit 3;
+
+-- get the top 2 products that are bought most times. Who is selling those products?
+select * from products p 
+inner join order_items oi on p.id=oi.product_id 
+inner join suppliers s on p.supplier_id=s.id 
+order by oi.quantity desc limit 3;

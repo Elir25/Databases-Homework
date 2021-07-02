@@ -1,15 +1,9 @@
 const express = require('express');
 const app = express();
-
+const secret = require("./secret.json")
 const { Pool } = require('pg');
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'cyf_ecommerce',
-    password: 'Piratas25',
-    port: 5432
-});
+const pool = new Pool(secret);
 
 app.get("/customers", function(req, res) {
     pool.query('SELECT * FROM customers', (error, result) => {
@@ -19,6 +13,12 @@ app.get("/customers", function(req, res) {
 
 app.get("/suppliers", function(req, res) {
     pool.query('SELECT * FROM suppliers', (error, result) => {
+        res.json(result.rows);
+    });
+});
+
+app.get("/products", function(req, res) {
+    pool.query('SELECT * FROM products INNER JOIN suppliers ON supplier_id=suppliers.id', (error, result) => {
         res.json(result.rows);
     });
 });
