@@ -180,4 +180,15 @@ order by oi.quantity desc limit 3;
 
 --Update the previous GET endpoint `/products` to filter the list of products by name using a query parameter, for example
 -- `/products?name=Cup`. This endpoint should still work even if you don't use the `name` query parameter!
+select * from products p where p.product_name ='Mobile Phone X';
 
+--Add a new GET endpoint `/customers/:customerId` to load a single customer by ID.
+SELECT * from customers WHERE id=1;
+--Create a new product 
+INSERT INTO products (product_name, unit_price, supplier_id) VALUES ('New pink dress', 10, 3);
+select * from products;
+
+SELECT * FROM suppliers s WHERE id=1;
+SELECT * FROM products p INNER JOIN suppliers s ON p.supplier_id=s.id WHERE s.id=1;
+
+select * from customers c inner join orders o on c.id=o.customer_id; 
